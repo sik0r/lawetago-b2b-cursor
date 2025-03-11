@@ -1,3 +1,118 @@
+/* LawetaGO Styles */
+
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --info-color: #0dcaf0;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+}
+
 body {
-    background-color: skyblue;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    color: var(--dark-color);
+}
+
+/* Hero Section */
+#hero {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+#hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Adding smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Enhancement for section transitions */
+section {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Card styling */
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom button styling */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+/* Nav styling */
+.navbar .nav-link {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+}
+
+.navbar .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Testimonial styling */
+.testimonial-card {
+    position: relative;
+}
+
+.testimonial-card:before {
+    content: '"';
+    font-size: 5rem;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    color: rgba(0, 0, 0, 0.05);
+    font-family: serif;
+}
+
+/* Custom styling for sections */
+#about, #features, #testimonials, #cta {
+    padding: 5rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #hero {
+        text-align: center;
+    }
+
+    #hero img {
+        margin-top: 2rem;
+    }
+
+    .navbar-collapse {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        z-index: 1030;
+    }
+}
+
+/* Footer styling */
+footer {
+    background-color: var(--dark-color);
+}
+
+footer a:hover {
+    color: white !important;
 }

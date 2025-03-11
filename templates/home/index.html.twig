@@ -1,0 +1,271 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LawetaGO - Panel Administracyjny dla Firm Lawetowych{% endblock %}
+
+{% block header %}
+    {% include 'partials/_header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {# Hero Section #}
+    <section id="hero" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center py-5">
+                <div class="col-md-6">
+                    <h1 class="display-4 fw-bold">Rozwijaj swoją firmę lawetową z LawetaGO</h1>
+                    <p class="lead text-muted mb-4">
+                        <span {{ stimulus_controller('symfony/ux-typed', {
+                            strings: [
+                                'Łatwa rejestracja, intuicyjny interfejs.',
+                                'Pełna kontrola nad zleceniami i ofertami.',
+                                'Zwiększ widoczność swojej firmy.',
+                                'Buduj zaufanie klientów.'
+                            ],
+                            smartBackspace: true,
+                            startDelay: 100,
+                            backSpeed: 20,
+                            backDelay: 1000,
+                            loop: true,
+                            showCursor: true
+                        }) }}></span>
+                    </p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="#" class="btn btn-primary btn-lg px-4 me-md-2">Załóż Konto</a>
+                        <a href="#about" class="btn btn-outline-secondary btn-lg px-4">Dowiedz się więcej</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{ asset('images/dashboard-preview.png') }}" class="img-fluid rounded shadow-lg" alt="Panel LawetaGO">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# About Section #}
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">O Aplikacji</h2>
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead text-muted">Panel administracyjny LawetaGO to kompleksowe narzędzie dla właścicieli i pracowników firm lawetowych.</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="bg-light p-4 rounded shadow-sm h-100">
+                        <h3 class="fs-4 mb-3">Czym jest LawetaGO?</h3>
+                        <p>LawetaGO to nowoczesna platforma umożliwiająca efektywne zarządzanie firmą lawetową. Nasz system łączy w sobie intuicyjność z zaawansowanymi funkcjami, które usprawniają codzienną pracę.</p>
+                        <p>Panel administracyjny został zaprojektowany specjalnie dla właścicieli i pracowników firm lawetowych, aby zapewnić im pełną kontrolę nad zleceniami, ofertą usług oraz relacjami z klientami.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="bg-light p-4 rounded shadow-sm h-100">
+                        <h3 class="fs-4 mb-3">Dla kogo?</h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-transparent"><i class="fas fa-check-circle text-success me-2"></i> Właścicieli firm lawetowych</li>
+                            <li class="list-group-item bg-transparent"><i class="fas fa-check-circle text-success me-2"></i> Pracowników obsługujących zlecenia</li>
+                            <li class="list-group-item bg-transparent"><i class="fas fa-check-circle text-success me-2"></i> Firm o różnych skalach działalności</li>
+                            <li class="list-group-item bg-transparent"><i class="fas fa-check-circle text-success me-2"></i> Przedsiębiorstw z wieloma oddziałami</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <img src="{{ asset('images/app-workflow.png') }}" class="img-fluid rounded shadow" alt="Schemat działania aplikacji" style="max-height: 300px;">
+            </div>
+        </div>
+    </section>
+
+    {# Features Section #}
+    <section id="features" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Funkcjonalności i Korzyści</h2>
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead text-muted">Poznaj możliwości, które oferuje nasz panel administracyjny.</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-building fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="card-title h5">Zarządzanie firmą i oddziałami</h3>
+                            <p class="card-text text-muted small">Łatwe dodawanie, edycja i usuwanie oddziałów firmy. Pełna kontrola nad strukturą organizacyjną.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-tasks fa-3x text-success"></i>
+                            </div>
+                            <h3 class="card-title h5">Obsługa zleceń</h3>
+                            <p class="card-text text-muted small">Intuicyjne zarządzanie zleceniami i aktualizacja statusów. Szybki dostęp do historii zleceń.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-tags fa-3x text-warning"></i>
+                            </div>
+                            <h3 class="card-title h5">Oferta usług i cennik</h3>
+                            <p class="card-text text-muted small">Łatwa aktualizacja oferty oraz przejrzysta prezentacja cen. Elastyczne zarządzanie usługami.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-star fa-3x text-info"></i>
+                            </div>
+                            <h3 class="card-title h5">Oceny i recenzje</h3>
+                            <p class="card-text text-muted small">Przeglądanie ocen i recenzji od klientów. Budowanie reputacji firmy i zaufania.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-4 mb-4">
+                    <h4><i class="fas fa-clock text-primary me-2"></i> Oszczędność czasu</h4>
+                    <p class="text-muted">Automatyzacja procesów zarządzania zleceniami i minimalizacja pracy administracyjnej.</p>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h4><i class="fas fa-sitemap text-primary me-2"></i> Lepsza organizacja</h4>
+                    <p class="text-muted">Przejrzysty system zarządzania oddziałami, pracownikami i zleceniami.</p>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <h4><i class="fas fa-eye text-primary me-2"></i> Zwiększona widoczność</h4>
+                    <p class="text-muted">Większa widoczność firmy wśród potencjalnych klientów korzystających z aplikacji.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Testimonials Section #}
+    <section id="testimonials" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Opinie Użytkowników</h2>
+                <div class="col-lg-6 mx-auto">
+                    <p class="lead text-muted">Co mówią o nas właściciele firm lawetowych?</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <i class="fas fa-quote-left text-muted me-2"></i>
+                                LawetaGO zrewolucjonizowało sposób w jaki zarządzam moją firmą. Wszystkie zlecenia w jednym miejscu i świetna organizacja pracy!
+                                <i class="fas fa-quote-right text-muted ms-2"></i>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('images/testimonial1.jpg') }}" class="rounded-circle me-3" width="50" height="50" alt="Jan Kowalski">
+                                <div>
+                                    <h5 class="mb-0">Jan Kowalski</h5>
+                                    <small class="text-muted">Lawety Kowalski</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <i class="fas fa-quote-left text-muted me-2"></i>
+                                Dzięki platformie LawetaGO, moja firma zyskała nowych klientów i usprawniła procesy obsługi zleceń. Polecam każdemu!
+                                <i class="fas fa-quote-right text-muted ms-2"></i>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('images/testimonial2.jpg') }}" class="rounded-circle me-3" width="50" height="50" alt="Anna Nowak">
+                                <div>
+                                    <h5 class="mb-0">Anna Nowak</h5>
+                                    <small class="text-muted">Lawety Express</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <i class="fas fa-quote-left text-muted me-2"></i>
+                                Panel administracyjny jest bardzo intuicyjny. Moi pracownicy szybko się nauczyli korzystać z systemu, co przełożyło się na efektywność.
+                                <i class="fas fa-quote-right text-muted ms-2"></i>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('images/testimonial3.jpg') }}" class="rounded-circle me-3" width="50" height="50" alt="Piotr Wiśniewski">
+                                <div>
+                                    <h5 class="mb-0">Piotr Wiśniewski</h5>
+                                    <small class="text-muted">Auto Pomoc 24h</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-2 col-4 mb-3">
+                        <img src="{{ asset('images/company-logo1.png') }}" class="img-fluid" alt="Logo firmy">
+                    </div>
+                    <div class="col-md-2 col-4 mb-3">
+                        <img src="{{ asset('images/company-logo2.png') }}" class="img-fluid" alt="Logo firmy">
+                    </div>
+                    <div class="col-md-2 col-4 mb-3">
+                        <img src="{{ asset('images/company-logo3.png') }}" class="img-fluid" alt="Logo firmy">
+                    </div>
+                    <div class="col-md-2 col-4 mb-3">
+                        <img src="{{ asset('images/company-logo4.png') }}" class="img-fluid" alt="Logo firmy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# CTA Section #}
+    <section id="cta" class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold">Dołącz do LawetaGO już dziś!</h2>
+                    <p class="lead mb-4">Rejestracja zajmuje tylko kilka minut. Rozwijaj swoją firmę lawetową z nami!</p>
+                    <a href="#" class="btn btn-light btn-lg px-5">Załóż Konto</a>
+                    <p class="mt-3 small">Masz pytania? Nasz zespół wsparcia jest gotowy do pomocy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer %}
+    {% include 'partials/_footer.html.twig' %}
+{% endblock %} 

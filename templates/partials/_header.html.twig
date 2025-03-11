@@ -1,0 +1,32 @@
+<header class="py-3 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-between">
+            <a href="{{ path('app_home') }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <img src="{{ asset('images/logo.png') }}" alt="LawetaGO Logo" height="40" class="me-2">
+                <span class="fs-5 fw-semibold">LawetaGO</span>
+                <span class="ms-3 text-muted d-none d-md-inline">Zarządzaj swoją firmą lawetową efektywnie!</span>
+            </a>
+
+            <button class="navbar-toggler d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <nav class="navbar navbar-expand-md">
+                <div class="collapse navbar-collapse" id="navbarHeader">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link px-2 link-dark">Home</a></li>
+                        <li class="nav-item"><a href="#about" class="nav-link px-2 link-dark">O Aplikacji</a></li>
+                        <li class="nav-item"><a href="#features" class="nav-link px-2 link-dark">Funkcjonalności</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 link-dark">FAQ</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link px-2 link-dark">Kontakt</a></li>
+                    </ul>
+                    <div class="d-flex">
+                        <a href="#" class="btn btn-outline-primary me-2">Logowanie</a>
+                        <a href="#" class="btn btn-primary me-2">Rejestracja</a>
+                        <a href="#" class="btn btn-success">Dla Kierowców</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header> 

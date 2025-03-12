@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rejestracja Firmy - LawetaGO{% endblock %}
+
+{% block header %}
+    {% include 'partials/_header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="h3 mb-0">Rejestracja Firmy</h1>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted mb-4">
+                            Zarejestruj swoją firmę, aby zarządzać oddziałami, zleceniami i ofertą usług. 
+                            Twoje konto zostanie zweryfikowane przez administratora przed aktywacją.
+                        </p>
+
+                        {% for flash_error in app.flashes('danger') %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ flash_error }}
+                            </div>
+                        {% endfor %}
+
+                        {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.name) }}
+                                {{ form_widget(registrationForm.name) }}
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.name) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.address) }}
+                                {{ form_widget(registrationForm.address) }}
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.address) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.nip) }}
+                                {{ form_widget(registrationForm.nip) }}
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.nip) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <h5>Dane kontaktowe</h5>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.phone) }}
+                                {{ form_widget(registrationForm.phone) }}
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.phone) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.email) }}
+                                {{ form_widget(registrationForm.email) }}
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.email) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <h5>Dane właściciela</h5>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.ownerFirstName) }}
+                                {{ form_widget(registrationForm.ownerFirstName) }}
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.ownerFirstName) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.ownerLastName) }}
+                                {{ form_widget(registrationForm.ownerLastName) }}
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.ownerLastName) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.plainPassword.first) }}
+                                {{ form_widget(registrationForm.plainPassword.first) }}
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.plainPassword.first) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(registrationForm.plainPassword.second) }}
+                                {{ form_widget(registrationForm.plainPassword.second) }}
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.plainPassword.second) }}
+                                </div>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                                <label class="form-check-label" for="{{ registrationForm.agreeTerms.vars.id }}">
+                                    Akceptuję <a href="#" target="_blank">regulamin</a>
+                                </label>
+                                <div class="form-text text-danger">
+                                    {{ form_errors(registrationForm.agreeTerms) }}
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    Zarejestruj
+                                </button>
+                            </div>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'partials/_footer.html.twig' %}
+{% endblock %} 

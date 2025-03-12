@@ -44,4 +44,9 @@ test:		## Run tests
 cmd: ## Run command in container `make cmd CMD="composer test"`
 	${DOCKER_EXEC} ${CMD}
 
-.PHONY: help setup rebuild stop start shell install test cmd
+refresh-test-db: ## Refresh database
+	${DOCKER_EXEC} php bin/console doctrine:database:drop --force --env=test --if-exists
+	${DOCKER_EXEC} php bin/console doctrine:database:create --env=test
+	${DOCKER_EXEC} php bin/console d:s:u --force --env=test
+
+.PHONY: help setup rebuild stop start shell install test cmd refresh-test-db

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rejestracja przyjęta - LawetaGO{% endblock %}
+
+{% block header %}
+    {% include 'partials/_header.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <h1 class="h3 mb-0">Rejestracja przyjęta</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                        </div>
+
+                        {% for flash_success in app.flashes('success') %}
+                            <div class="alert alert-success" role="alert">
+                                {{ flash_success }}
+                            </div>
+                        {% endfor %}
+
+                        <p class="lead">Dziękujemy za rejestrację w systemie LawetaGO!</p>
+                        
+                        <p>Twoje zgłoszenie zostało przyjęte i oczekuje na weryfikację przez administratora.</p>
+                        
+                        <p>Po weryfikacji otrzymasz powiadomienie na podany adres email. Po aktywacji konta będziesz mógł się zalogować i korzystać z pełnej funkcjonalności systemu.</p>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="d-grid gap-2">
+                            <a href="{{ path('app_home') }}" class="btn btn-primary">
+                                Powrót na stronę główną
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% include 'partials/_footer.html.twig' %}
+{% endblock %} 

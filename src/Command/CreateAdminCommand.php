@@ -51,7 +51,7 @@ class CreateAdminCommand extends Command
         // Create new admin
         $admin = new Admin();
         $admin->setEmail($email);
-        
+
         // Hash the password
         $hashedPassword = $this->passwordHasher->hashPassword($admin, $password);
         $admin->setPassword($hashedPassword);
@@ -63,4 +63,4 @@ class CreateAdminCommand extends Command
 
         return Command::SUCCESS;
     }
-} 
+}

@@ -32,4 +32,4 @@ class CompanyController extends AbstractController
             'totalCompanies' => $totalCompanies,
         ]);
     }
-} 
+}

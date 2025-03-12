@@ -6,7 +6,6 @@ namespace App\Repository;
 
 use App\Entity\Company;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,7 +39,7 @@ class CompanyRepository extends ServiceEntityRepository
     /**
      * Find companies with pagination.
      *
-     * @param int $page The page number
+     * @param int $page  The page number
      * @param int $limit The number of items per page
      *
      * @return array<Company> The paginated companies

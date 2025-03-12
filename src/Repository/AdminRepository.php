@@ -56,4 +56,4 @@ class AdminRepository extends ServiceEntityRepository implements PasswordUpgrade
         $user->setPassword($newHashedPassword);
         $this->save($user, true);
     }
-} 
+}

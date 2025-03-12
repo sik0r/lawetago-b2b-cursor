@@ -1,0 +1,15 @@
+admin_login:
+    path: /admin/login
+    controller: App\Controller\Admin\SecurityController::login
+
+admin_logout:
+    path: /admin/logout
+    methods: GET
+
+admin_dashboard:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index
+
+admin_companies:
+    path: /admin/companies
+    controller: App\Controller\Admin\CompanyController::index 

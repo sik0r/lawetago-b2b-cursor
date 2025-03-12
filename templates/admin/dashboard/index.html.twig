@@ -1,0 +1,25 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Dashboard - Panel Administracyjny LawetaGO{% endblock %}
+
+{% block header %}Dashboard{% endblock %}
+
+{% block body %}
+    <div class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Witaj w Panelu Administracyjnym LawetaGO</h2>
+        <p class="text-gray-600">
+            Ten panel umożliwia zarządzanie systemem LawetaGO, w tym weryfikację firm, zarządzanie użytkownikami i monitorowanie działania platformy.
+        </p>
+        
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                <h3 class="text-lg font-medium text-blue-800 mb-2">Zarządzanie Firmami</h3>
+                <p class="text-blue-600 mb-4">Weryfikuj i zarządzaj firmami zarejestrowanymi w systemie.</p>
+                <a href="{{ path('admin_companies') }}" class="inline-flex items-center text-blue-700 hover:text-blue-900">
+                    Przejdź do firm
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

@@ -60,7 +60,7 @@ class Company
     private ?\DateTimeImmutable $verifiedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'ownedCompanies')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Employee $owner = null;
 
     #[ORM\ManyToMany(targetEntity: Employee::class, inversedBy: 'employedAt')]

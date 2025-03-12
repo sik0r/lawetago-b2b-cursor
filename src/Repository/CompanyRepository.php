@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Company;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -34,5 +35,24 @@ class CompanyRepository extends ServiceEntityRepository
             ->setParameter('nip', $nip)
             ->getQuery()
             ->getSingleScalarResult() > 0;
+    }
+
+    /**
+     * Find companies with pagination.
+     *
+     * @param int $page The page number
+     * @param int $limit The number of items per page
+     *
+     * @return array<Company> The paginated companies
+     */
+    public function findPaginated(int $page = 1, int $limit = 10): array
+    {
+        $query = $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery();
+
+        return $query->getResult();
     }
 }

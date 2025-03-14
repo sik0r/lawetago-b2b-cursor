@@ -45,7 +45,9 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     {% for company in companies %}
-                        <tr>
+                        <tr data-controller="company" 
+                            data-company-id-value="{{ company.id }}"
+                            data-company-activate-url-value="{{ path('admin_company_activate', {id: company.id}) }}">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ company.id }}
                             </td>
@@ -69,7 +71,7 @@
                                     {% else %}
                                         bg-red-100 text-red-800
                                     {% endif %}
-                                ">
+                                " data-company-target="statusBadge">
                                     {{ company.status }}
                                 </span>
                             </td>
@@ -78,11 +80,14 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 {% if company.status == constant('App\\Entity\\Company::STATUS_PENDING') %}
-                                    <a href="#" class="text-green-600 hover:text-green-900 mr-2">
+                                    <button type="button" 
+                                            data-company-target="activateButton"
+                                            data-action="company#activate"
+                                            class="text-green-600 hover:text-green-900 mr-2">
                                         <i class="fas fa-check"></i> Aktywuj
-                                    </a>
+                                    </button>
                                 {% endif %}
-                                <a href="#" class="text-blue-600 hover:text-blue-900">
+                                <a href="{{ path('admin_company_show', {id: company.id}) }}" class="text-blue-600 hover:text-blue-900">
                                     <i class="fas fa-eye"></i> Szczegóły
                                 </a>
                             </td>
@@ -99,38 +104,58 @@
         </div>
         
         {% if totalPages > 1 %}
-            <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                    <div>
-                        <p class="text-sm text-gray-700">
-                            Pokazuje <span class="font-medium">{{ (currentPage - 1) * 10 + 1 }}</span> do <span class="font-medium">{{ min(currentPage * 10, totalCompanies) }}</span> z <span class="font-medium">{{ totalCompanies }}</span> firm
-                        </p>
+            <div class="px-4 py-3 bg-gray-50 border-t border-gray-200 sm:px-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1 flex justify-between sm:hidden">
+                        {% if currentPage > 1 %}
+                            <a href="{{ path('admin_companies', {page: currentPage - 1}) }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                Poprzednia
+                            </a>
+                        {% endif %}
+                        {% if currentPage < totalPages %}
+                            <a href="{{ path('admin_companies', {page: currentPage + 1}) }}" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                Następna
+                            </a>
+                        {% endif %}
                     </div>
-                    <div>
-                        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                            {% if currentPage > 1 %}
-                                <a href="{{ path('admin_companies', {page: currentPage - 1}) }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                    <span class="sr-only">Poprzednia</span>
-                                    <i class="fas fa-chevron-left"></i>
-                                </a>
-                            {% endif %}
-                            
-                            {% for i in 1..totalPages %}
-                                <a href="{{ path('admin_companies', {page: i}) }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium {% if i == currentPage %}text-blue-600 bg-blue-50{% else %}text-gray-700 hover:bg-gray-50{% endif %}">
-                                    {{ i }}
-                                </a>
-                            {% endfor %}
-                            
-                            {% if currentPage < totalPages %}
-                                <a href="{{ path('admin_companies', {page: currentPage + 1}) }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                    <span class="sr-only">Następna</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </a>
-                            {% endif %}
-                        </nav>
+                    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                        <div>
+                            <p class="text-sm text-gray-700">
+                                Wyświetlanie <span class="font-medium">{{ companies|length }}</span> z <span class="font-medium">{{ totalCompanies }}</span> firm
+                            </p>
+                        </div>
+                        <div>
+                            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                {% if currentPage > 1 %}
+                                    <a href="{{ path('admin_companies', {page: currentPage - 1}) }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <span class="sr-only">Poprzednia</span>
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                {% endif %}
+                                
+                                {% for i in 1..totalPages %}
+                                    <a href="{{ path('admin_companies', {page: i}) }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium {% if i == currentPage %}text-blue-600 bg-blue-50{% else %}text-gray-700 hover:bg-gray-50{% endif %}">
+                                        {{ i }}
+                                    </a>
+                                {% endfor %}
+                                
+                                {% if currentPage < totalPages %}
+                                    <a href="{{ path('admin_companies', {page: currentPage + 1}) }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                        <span class="sr-only">Następna</span>
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                {% endif %}
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 {% endblock %} 

@@ -1,0 +1,173 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ company.name }} - Panel Administracyjny LawetaGO{% endblock %}
+
+{% block header %}Szczegóły firmy{% endblock %}
+
+{% block body %}
+    <div class="mb-4">
+        <a href="{{ path('admin_companies') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+            <i class="fas fa-arrow-left mr-2"></i> Powrót do listy
+        </a>
+    </div>
+
+    <div class="bg-white shadow rounded-lg overflow-hidden" 
+         data-controller="company" 
+         data-company-id-value="{{ company.id }}"
+         data-company-activate-url-value="{{ path('admin_company_activate', {id: company.id}) }}">
+        <div class="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-gray-200">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                {{ company.name }}
+            </h3>
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                {% if company.status == constant('App\\Entity\\Company::STATUS_ACTIVE') %}
+                    bg-green-100 text-green-800
+                {% elseif company.status == constant('App\\Entity\\Company::STATUS_PENDING') %}
+                    bg-yellow-100 text-yellow-800
+                {% else %}
+                    bg-red-100 text-red-800
+                {% endif %}
+            " data-company-target="statusBadge">
+                {{ company.status }}
+            </span>
+        </div>
+        
+        <div class="px-4 py-5 sm:p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="text-md font-medium text-gray-900 mb-2">Informacje podstawowe</h4>
+                    <dl class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">ID</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ company.id }}</dd>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">NIP</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ company.nip }}</dd>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <dt class="text-sm font-medium text-gray-500">Nazwa</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ company.name }}</dd>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <dt class="text-sm font-medium text-gray-500">Adres</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ company.address }}</dd>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">Email</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ company.email }}</dd>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">Telefon</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ company.phone }}</dd>
+                        </div>
+                    </dl>
+                </div>
+                
+                <div>
+                    <h4 class="text-md font-medium text-gray-900 mb-2">Informacje dodatkowe</h4>
+                    <dl class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">Data utworzenia</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ company.createdAt|date('d.m.Y H:i') }}</dd>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">Data weryfikacji</dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {% if company.verifiedAt %}
+                                    {{ company.verifiedAt|date('d.m.Y H:i') }}
+                                {% else %}
+                                    <span class="text-gray-400">Brak</span>
+                                {% endif %}
+                            </dd>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <dt class="text-sm font-medium text-gray-500">Właściciel</dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {% if company.owner %}
+                                    {{ company.owner.fullName }} ({{ company.owner.email }})
+                                {% else %}
+                                    <span class="text-gray-400">Brak przypisanego właściciela</span>
+                                {% endif %}
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+            
+            <div class="mt-8">
+                <h4 class="text-md font-medium text-gray-900 mb-2">Pracownicy ({{ company.employees|length }})</h4>
+                {% if company.employees|length > 0 %}
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Imię i nazwisko
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Email
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Telefon
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                {% for employee in company.employees %}
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            {{ employee.fullName }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ employee.email }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ employee.phone ?? 'Brak' }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-sm text-gray-500">Firma nie ma przypisanych pracowników.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="px-4 py-4 sm:px-6 bg-gray-50 border-t border-gray-200">
+            <div class="flex justify-between">
+                {% if company.status == constant('App\\Entity\\Company::STATUS_PENDING') %}
+                    <button type="button" 
+                            data-company-target="activateButton"
+                            data-action="company#activate"
+                            class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        <i class="fas fa-check mr-2"></i> Aktywuj firmę
+                    </button>
+                {% elseif company.status == constant('App\\Entity\\Company::STATUS_ACTIVE') %}
+                    <button type="button" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 active:bg-red-900 focus:outline-none focus:border-red-900 focus:ring ring-red-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        <i class="fas fa-ban mr-2"></i> Dezaktywuj firmę
+                    </button>
+                {% else %}
+                    <button type="button" 
+                            data-company-target="activateButton"
+                            data-action="company#activate"
+                            class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 active:bg-green-900 focus:outline-none focus:border-green-900 focus:ring ring-green-300 disabled:opacity-25 transition ease-in-out duration-150">
+                        <i class="fas fa-check mr-2"></i> Aktywuj firmę
+                    </button>
+                {% endif %}
+                
+                <button type="button" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                    <i class="fas fa-edit mr-2"></i> Edytuj firmę
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+{% endblock %} 

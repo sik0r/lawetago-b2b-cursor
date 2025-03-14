@@ -12,4 +12,10 @@ admin_dashboard:
 
 admin_companies:
     path: /admin/companies
-    controller: App\Controller\Admin\CompanyController::index 
+    controller: App\Controller\Admin\CompanyController::index
+
+admin_company_show:
+    path: /admin/companies/{id}
+    controller: App\Controller\Admin\CompanyController::show
+    requirements:
+        id: '\d+' 

@@ -29,6 +29,17 @@ security:
             logout:
                 path: admin_logout
                 target: admin_login
+        backoffice:
+            pattern: ^/backoffice
+            provider: employee_provider
+            form_login:
+                login_path: backoffice_login
+                check_path: backoffice_login
+                default_target_path: backoffice_dashboard
+                enable_csrf: true
+            logout:
+                path: backoffice_logout
+                target: backoffice_login
         main:
             lazy: true
             provider: employee_provider
@@ -38,6 +49,8 @@ security:
     access_control:
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/backoffice/login, roles: PUBLIC_ACCESS }
+        - { path: ^/backoffice, roles: [ROLE_COMPANY_OWNER, ROLE_COMPANY_EMPLOYEE] }
 
 when@test:
     security:

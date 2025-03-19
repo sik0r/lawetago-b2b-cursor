@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LawetaGO - Panel Firmowy{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Panel Firmowy LawetaGO</h1>
+    
+    <div class="alert alert-success">
+        Witaj w panelu firmowym LawetaGO. Zalogowano jako: {{ app.user.email }}
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Zlecenia</h5>
+                    <p class="card-text">Zarządzaj zleceniami dla Twojej firmy.</p>
+                    <a href="#" class="btn btn-primary">Przejdź do zleceń</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Usługi i Cennik</h5>
+                    <p class="card-text">Zarządzaj ofertą usług i cennikiem.</p>
+                    <a href="#" class="btn btn-primary">Zarządzaj usługami</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Oceny i Recenzje</h5>
+                    <p class="card-text">Przeglądaj oceny i recenzje od klientów.</p>
+                    <a href="#" class="btn btn-primary">Zobacz recenzje</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-3">
+        <a href="{{ path('backoffice_logout') }}" class="btn btn-danger">Wyloguj się</a>
+    </div>
+</div>
+{% endblock %} 

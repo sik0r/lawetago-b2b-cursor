@@ -1,0 +1,11 @@
+backoffice_login:
+    path: /backoffice/login
+    controller: App\Controller\Backoffice\SecurityController::login
+
+backoffice_logout:
+    path: /backoffice/logout
+    methods: GET
+
+backoffice_dashboard:
+    path: /backoffice
+    controller: App\Controller\Backoffice\DashboardController::index 

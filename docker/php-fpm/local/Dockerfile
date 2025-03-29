@@ -20,10 +20,10 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install gd pdo pdo_pgsql intl mbstring exif bcmath && \
     docker-php-ext-enable gd intl mbstring exif bcmath
 
-RUN pecl install xdebug
+#RUN pecl install xdebug
 
 COPY application.ini /usr/local/etc/php/conf.d/application.ini
-COPY xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+#COPY xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 

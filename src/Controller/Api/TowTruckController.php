@@ -39,6 +39,9 @@ class TowTruckController extends AbstractController
             $limit
         );
         
+        // Calculate total pages
+        $totalPages = ceil($pagination->getTotalItemCount() / $limit);
+        
         // Prepare the HATEOAS response data
         $responseData = [
             '_links' => [
@@ -56,7 +59,7 @@ class TowTruckController extends AbstractController
                 ],
                 'last' => [
                     'href' => $urlGenerator->generate('api_towtruck_list', [
-                        'page' => $pagination->getPageCount() ?: 1,
+                        'page' => $totalPages ?: 1,
                         'limit' => $limit,
                     ], UrlGeneratorInterface::ABSOLUTE_URL),
                 ],
@@ -64,14 +67,14 @@ class TowTruckController extends AbstractController
             'page' => $page,
             'limit' => $limit,
             'totalItems' => $pagination->getTotalItemCount(),
-            'totalPages' => $pagination->getPageCount(),
+            'totalPages' => $totalPages,
             '_embedded' => [
                 'items' => [],
             ],
         ];
         
         // Add next and prev links if applicable
-        if ($page < $pagination->getPageCount()) {
+        if ($page < $totalPages) {
             $responseData['_links']['next'] = [
                 'href' => $urlGenerator->generate('api_towtruck_list', [
                     'page' => $page + 1,
@@ -152,6 +155,11 @@ class TowTruckController extends AbstractController
             'status' => $advertisement->getStatus(),
             'createdAt' => $advertisement->getCreatedAt()?->format(\DateTimeInterface::ATOM),
             'updatedAt' => $advertisement->getUpdatedAt()?->format(\DateTimeInterface::ATOM),
+            'company' => $advertisement->getCompany() ? [
+                'name' => $advertisement->getCompany()->getName(),
+                'address' => $advertisement->getCompany()->getAddress(),
+                'nip' => $advertisement->getCompany()->getNip(),
+            ] : null,
             '_links' => [
                 'self' => [
                     'href' => $urlGenerator->generate('api_towtruck_show', [

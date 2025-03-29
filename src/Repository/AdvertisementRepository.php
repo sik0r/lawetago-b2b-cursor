@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Entity\Advertisement;
 use App\Entity\Company;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -77,5 +78,17 @@ class AdvertisementRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Creates a QueryBuilder for API listing of advertisements
+     * This QueryBuilder can be used for pagination in the API
+     */
+    public function createQueryBuilderForApiListing(): QueryBuilder
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.status = :status') // Only show active advertisements
+            ->setParameter('status', Advertisement::STATUS_ACTIVE)
+            ->orderBy('a.createdAt', 'DESC');
     }
 } 

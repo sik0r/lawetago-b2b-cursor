@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Repository\AdvertisementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AdvertisementRepository::class)]
@@ -21,32 +22,40 @@ class Advertisement
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['advertisement:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Tytuł jest wymagany')]
     #[Assert\Length(max: 255, maxMessage: 'Tytuł nie może być dłuższy niż {{ limit }} znaków')]
+    #[Groups(['advertisement:read'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'Opis jest wymagany')]
+    #[Groups(['advertisement:read'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'Obszar obsługi jest wymagany')]
+    #[Groups(['advertisement:read'])]
     private ?string $serviceArea = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'Oferowane usługi są wymagane')]
+    #[Groups(['advertisement:read'])]
     private ?string $servicesOffered = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['advertisement:read'])]
     private ?string $status = self::STATUS_DRAFT;
 
     #[ORM\Column]
+    #[Groups(['advertisement:read'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['advertisement:read'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'advertisements')]

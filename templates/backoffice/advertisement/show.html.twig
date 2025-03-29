@@ -1,0 +1,81 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Szczegóły ogłoszenia - Panel Firmowy{% endblock %}
+
+{% block header %}Szczegóły ogłoszenia{% endblock %}
+
+{% block body %}
+    <div class="bg-white shadow rounded-lg p-6">
+        <div class="mb-6 flex justify-between items-center">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-800">{{ advertisement.title }}</h2>
+            </div>
+            <div class="flex space-x-3">
+                <a href="{{ path('backoffice_advertisement_edit', {'id': advertisement.id}) }}" class="bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-md flex items-center">
+                    <i class="fas fa-edit mr-2"></i> Edytuj
+                </a>
+                {% include 'backoffice/advertisement/_delete_form.html.twig' %}
+            </div>
+        </div>
+
+        <div class="border-t border-gray-200 pt-4 mt-4">
+            <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Status</dt>
+                    <dd class="mt-1">
+                        {% if advertisement.status == 'active' %}
+                            <span class="bg-green-100 text-green-800 py-1 px-2 rounded-full text-xs">Aktywne</span>
+                        {% elseif advertisement.status == 'inactive' %}
+                            <span class="bg-red-100 text-red-800 py-1 px-2 rounded-full text-xs">Nieaktywne</span>
+                        {% else %}
+                            <span class="bg-yellow-100 text-yellow-800 py-1 px-2 rounded-full text-xs">Wersja robocza</span>
+                        {% endif %}
+                    </dd>
+                </div>
+
+                <div class="col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Firma</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ advertisement.company.name }}</dd>
+                </div>
+
+                <div class="col-span-2">
+                    <dt class="text-sm font-medium text-gray-500">Opis</dt>
+                    <dd class="mt-1 text-sm text-gray-900 whitespace-pre-line">{{ advertisement.description }}</dd>
+                </div>
+
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Obszar obsługi</dt>
+                    <dd class="mt-1 text-sm text-gray-900 whitespace-pre-line">{{ advertisement.serviceArea }}</dd>
+                </div>
+
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Oferowane usługi</dt>
+                    <dd class="mt-1 text-sm text-gray-900 whitespace-pre-line">{{ advertisement.servicesOffered }}</dd>
+                </div>
+
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Utworzono przez</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ advertisement.createdBy.fullName }}</dd>
+                </div>
+
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Data utworzenia</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ advertisement.createdAt|date('d.m.Y H:i') }}</dd>
+                </div>
+
+                {% if advertisement.updatedAt %}
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Data aktualizacji</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ advertisement.updatedAt|date('d.m.Y H:i') }}</dd>
+                </div>
+                {% endif %}
+            </dl>
+        </div>
+
+        <div class="mt-6">
+            <a href="{{ path('backoffice_advertisement_index') }}" class="text-amber-600 hover:text-amber-900">
+                <i class="fas fa-arrow-left mr-1"></i> Powrót do listy ogłoszeń
+            </a>
+        </div>
+    </div>
+{% endblock %} 

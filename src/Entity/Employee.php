@@ -61,11 +61,15 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Company::class, mappedBy: 'employees')]
     private Collection $employedAt;
 
+    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Advertisement::class, orphanRemoval: true)]
+    private Collection $createdAdvertisements;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->ownedCompanies = new ArrayCollection();
         $this->employedAt = new ArrayCollection();
+        $this->createdAdvertisements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -255,6 +259,36 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->employedAt->removeElement($employedAt)) {
             $employedAt->removeEmployee($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Advertisement>
+     */
+    public function getCreatedAdvertisements(): Collection
+    {
+        return $this->createdAdvertisements;
+    }
+
+    public function addCreatedAdvertisement(Advertisement $advertisement): static
+    {
+        if (!$this->createdAdvertisements->contains($advertisement)) {
+            $this->createdAdvertisements->add($advertisement);
+            $advertisement->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedAdvertisement(Advertisement $advertisement): static
+    {
+        if ($this->createdAdvertisements->removeElement($advertisement)) {
+            // set the owning side to null (unless already changed)
+            if ($advertisement->getCreatedBy() === $this) {
+                $advertisement->setCreatedBy(null);
+            }
         }
 
         return $this;

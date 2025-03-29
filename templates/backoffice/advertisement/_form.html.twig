@@ -1,0 +1,42 @@
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+    <div class="grid grid-cols-1 gap-6">
+        <div class="mb-4">
+            {{ form_label(form.title, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.title) }}
+            {{ form_errors(form.title, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+
+        <div class="mb-4">
+            {{ form_label(form.description, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+
+        <div class="mb-4">
+            {{ form_label(form.serviceArea, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.serviceArea) }}
+            {{ form_errors(form.serviceArea, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+
+        <div class="mb-4">
+            {{ form_label(form.servicesOffered, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.servicesOffered) }}
+            {{ form_errors(form.servicesOffered, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+
+        <div class="mb-4">
+            {{ form_label(form.status, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-1'}}) }}
+            {{ form_widget(form.status) }}
+            {{ form_errors(form.status, {'attr': {'class': 'text-red-500 text-xs mt-1'}}) }}
+        </div>
+    </div>
+
+    <div class="flex justify-end space-x-3 mt-6">
+        <a href="{{ path('backoffice_advertisement_index') }}" class="py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none">
+            Anuluj
+        </a>
+        <button type="submit" class="bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-md">
+            {{ button_label|default('Zapisz') }}
+        </button>
+    </div>
+{{ form_end(form) }} 

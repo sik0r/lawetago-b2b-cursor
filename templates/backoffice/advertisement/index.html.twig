@@ -1,0 +1,68 @@
+{% extends 'backoffice/base.html.twig' %}
+
+{% block title %}Ogłoszenia z lawetą - Panel Firmowy{% endblock %}
+
+{% block header %}Ogłoszenia z lawetą{% endblock %}
+
+{% block body %}
+    <div class="bg-white shadow rounded-lg p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-800">Lista ogłoszeń</h2>
+            <a href="{{ path('backoffice_advertisement_new') }}" class="bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-md flex items-center">
+                <i class="fas fa-plus mr-2"></i> Dodaj nowe ogłoszenie
+            </a>
+        </div>
+
+        {% if advertisements is empty %}
+            <div class="bg-gray-100 p-4 rounded-md text-gray-600 text-center">
+                <p>Nie masz jeszcze żadnych ogłoszeń. Kliknij "Dodaj nowe ogłoszenie", aby rozpocząć.</p>
+            </div>
+        {% else %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tytuł</th>
+                            <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Firma</th>
+                            <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data utworzenia</th>
+                            <th class="py-3 px-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        {% for advertisement in advertisements %}
+                            <tr class="hover:bg-gray-50">
+                                <td class="py-3 px-4 text-sm text-gray-900">{{ advertisement.title }}</td>
+                                <td class="py-3 px-4 text-sm">
+                                    {% if advertisement.status == 'active' %}
+                                        <span class="bg-green-100 text-green-800 py-1 px-2 rounded-full text-xs">Aktywne</span>
+                                    {% elseif advertisement.status == 'inactive' %}
+                                        <span class="bg-red-100 text-red-800 py-1 px-2 rounded-full text-xs">Nieaktywne</span>
+                                    {% else %}
+                                        <span class="bg-yellow-100 text-yellow-800 py-1 px-2 rounded-full text-xs">Wersja robocza</span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-3 px-4 text-sm text-gray-900">{{ advertisement.company.name }}</td>
+                                <td class="py-3 px-4 text-sm text-gray-500">{{ advertisement.createdAt|date('d.m.Y H:i') }}</td>
+                                <td class="py-3 px-4 text-sm text-right space-x-2">
+                                    <a href="{{ path('backoffice_advertisement_show', {'id': advertisement.id}) }}" class="text-blue-600 hover:text-blue-900" title="Pokaż">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ path('backoffice_advertisement_edit', {'id': advertisement.id}) }}" class="text-amber-600 hover:text-amber-900" title="Edytuj">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ advertisement.id }}').submit();" class="text-red-600 hover:text-red-900" title="Usuń">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <form id="delete-form-{{ advertisement.id }}" action="{{ path('backoffice_advertisement_delete', {'id': advertisement.id}) }}" method="post" style="display: none;">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ advertisement.id) }}">
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %} 

@@ -67,10 +67,14 @@ class Company
     #[ORM\JoinTable(name: 'company_employees')]
     private Collection $employees;
 
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Advertisement::class, orphanRemoval: true)]
+    private Collection $advertisements;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->employees = new ArrayCollection();
+        $this->advertisements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,6 +217,36 @@ class Company
     public function removeEmployee(Employee $employee): static
     {
         $this->employees->removeElement($employee);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Advertisement>
+     */
+    public function getAdvertisements(): Collection
+    {
+        return $this->advertisements;
+    }
+
+    public function addAdvertisement(Advertisement $advertisement): static
+    {
+        if (!$this->advertisements->contains($advertisement)) {
+            $this->advertisements->add($advertisement);
+            $advertisement->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdvertisement(Advertisement $advertisement): static
+    {
+        if ($this->advertisements->removeElement($advertisement)) {
+            // set the owning side to null (unless already changed)
+            if ($advertisement->getCompany() === $this) {
+                $advertisement->setCompany(null);
+            }
+        }
 
         return $this;
     }
